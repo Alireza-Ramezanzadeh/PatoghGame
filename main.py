@@ -28,7 +28,7 @@ DEFAULT_DATA = {
     "servers": [
         {
             "id": "mc-malibu",
-            "venue_name": "کلوب مالیبو (The Malibu Club)",
+            "venue_name": "MALIBU CLUB • کلوب مالیبو",
             "city_zone": "منطقه ساحلی Ocean Beach",
             "name": "سرور ماینکرفت پاتوق (سوروایول و تجارت شهر)",
             "game": "Minecraft 1.20+",
@@ -39,12 +39,30 @@ DEFAULT_DATA = {
             "max_players": 120,
             "ping": "21ms",
             "version": "Java & Bedrock (رسمی و کرک)",
-            "wanted_level": 2,
+            "wanted_level": 3,
+            "image": "/static/images/malibu-club.jpg",
             "description": "پاتوق اصلی گیمرهای شهر در قلب وایس‌سیتی. ساخت و ساز آزاد، تجارت کالا با دیگر بازیکنان و رویدادهای شبانه با پینگ فوق‌العاده پایین."
         },
         {
+            "id": "cs2-docks",
+            "venue_name": "VICE PORT DOCKS • اسکله وایس‌پورت",
+            "city_zone": "منطقه صنعتی Vice Port",
+            "name": "سرور تاکتیکال ۵v5 کانتر ۲ (CS2 Shootout)",
+            "game": "Counter-Strike 2",
+            "ip": "cs2.patoghgame.ir",
+            "port": "27015",
+            "status": "online",
+            "players": 10,
+            "max_players": 10,
+            "ping": "24ms",
+            "version": "128 Tickrate / Matchmaking",
+            "wanted_level": 5,
+            "image": "/static/images/vice-docks.jpg",
+            "description": "میدان آتش و رویارویی مسلحانه تیم‌های خلافکار شهر بر روی مپ‌های Mirage و Inferno با لیدربرد هفتگی."
+        },
+        {
             "id": "mc-bedwars-arena",
-            "venue_name": "آرنای مسابقات زیرزمینی (Vice Underground)",
+            "venue_name": "NEON ARENA • آرنای زیرزمینی",
             "city_zone": "اسکله پاتوق سیتی - Dock 9",
             "name": "میدان مسابقات بدوارز (Bedwars Street Cup)",
             "game": "Minecraft Bedwars",
@@ -56,23 +74,8 @@ DEFAULT_DATA = {
             "ping": "18ms",
             "version": "1.8.9 - 1.20+",
             "wanted_level": 4,
+            "image": "/static/images/neon-arena.jpg",
             "description": "نبردهای حذفی و پر سرعت بر سر تخت‌های محافظت شده. مسابقه تیمی بدون تقلب با سیستم ضد چیت مدرن لئونیدا."
-        },
-        {
-            "id": "cs2-docks",
-            "venue_name": "انبار کانتینری وایس‌پورت (Vice Port Docks)",
-            "city_zone": "منطقه صنعتی Vice Port Industrial",
-            "name": "سرور تاکتیکال ۵v5 کانتر ۲ (CS2 Shootout)",
-            "game": "Counter-Strike 2",
-            "ip": "cs2.patoghgame.ir",
-            "port": "27015",
-            "status": "online",
-            "players": 10,
-            "max_players": 10,
-            "ping": "24ms",
-            "version": "128 Tickrate / Matchmaking",
-            "wanted_level": 5,
-            "description": "میدان آتش و رویارویی مسلحانه تیم‌های خلافکار شهر بر روی مپ‌های Mirage و Inferno با لیدربرد هفتگی."
         }
     ],
     "events": [

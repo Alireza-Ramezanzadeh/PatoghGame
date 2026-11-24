@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PatoghGame VI | پاتوق گیم - خیابان‌های وایس‌سیتی</title>
-  <meta name="description" content="شهر پاتوق گیم؛ سرورهای رایگان بازی و رویدادهای خیابانی با حال و هوای GTA VI وایس‌سیتی">
+  <title>PatoghGame VI | پاتوق گیم - شهر سرورها و رویدادهای رایگان</title>
+  <meta name="description" content="پاتوق گیم؛ پلتفرم گرافیکی سرورهای رایگان بازی و مسابقات خیابانی با طراحی GTA VI وایس‌سیتی">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
@@ -24,389 +24,342 @@
 </head>
 <body class="vice-gradient-bg text-gray-100 font-sans min-h-screen flex flex-col selection:bg-[#ff2a85] selection:text-white overflow-x-hidden">
 
-  <!-- Vice City Skyline SVG & Sunset Ambient Backdrop -->
-  <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-    <!-- Sunset Sun -->
-    <div class="absolute top-[-100px] left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-gradient-to-b from-[#ff007f]/25 via-[#ff758c]/15 to-transparent blur-[110px]"></div>
-    <!-- Palm Shadows Left/Right -->
-    <div class="absolute bottom-0 right-0 w-72 h-96 opacity-15 pointer-events-none">
-      <svg viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-        <path d="M120 300 C130 220, 150 150, 140 80" stroke="#000" stroke-width="12" stroke-linecap="round"/>
-        <path d="M140 80 C100 50, 50 70, 20 100 C60 85, 100 80, 140 80 Z" fill="#ff2a85"/>
-        <path d="M140 80 C110 20, 60 10, 30 35 C75 40, 110 55, 140 80 Z" fill="#00f2fe"/>
-        <path d="M140 80 C170 30, 195 40, 200 75 C175 65, 155 70, 140 80 Z" fill="#ff2a85"/>
-      </svg>
-    </div>
-  </div>
-
-  <!-- Vice City Police Dispatch / Radio Ticker -->
-  {% if broadcast %}
-  <div class="bg-black/80 border-b-2 border-[#ff2a85]/70 px-4 py-2 text-xs sm:text-sm text-[#00f2fe] flex items-center justify-center gap-3 backdrop-blur-md">
-    <span class="px-2 py-0.5 rounded bg-[#ff2a85] text-white font-bold text-[10px] tracking-wider uppercase animate-pulse">VICE FM</span>
-    <span class="font-medium tracking-wide">{{ broadcast }}</span>
-  </div>
-  {% endif %}
-
-  <!-- GTA HUD Navigation Header -->
-  <header class="sticky top-0 z-40 backdrop-blur-lg bg-[#090314]/85 border-b border-purple-500/30">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+  <!-- TOP TRANSLUCENT HUD HEADER (Exact Mockup Style) -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#0b0416]/80 border-b border-purple-500/30 shadow-2xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
       
-      <!-- Brand Logo (GTA VI style badge) -->
-      <div class="flex items-center gap-3">
-        <div class="relative group">
-          <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#ff2a85] via-[#7928ca] to-[#00f2fe] p-0.5 shadow-lg shadow-[#ff2a85]/30">
-            <div class="w-full h-full bg-[#0b0418] rounded-[10px] flex items-center justify-center font-gta text-2xl text-transparent bg-clip-text bg-gradient-to-b from-[#ffb703] to-[#ff2a85]">
-              VI
-            </div>
-          </div>
+      <!-- Brand Logo (VI PATOGH GAME) -->
+      <a href="#" class="flex items-center gap-3 group shrink-0">
+        <div class="relative flex items-center justify-center">
+          <span class="font-gta text-3xl sm:text-4xl text-transparent bg-clip-text bg-gradient-to-b from-[#ff2a85] via-[#a855f7] to-[#00f2fe] neon-pink-text leading-none">VI</span>
         </div>
-        <div>
-          <span class="font-extrabold text-xl sm:text-2xl tracking-tight text-white flex items-center gap-1.5">
-            پاتوق <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff2a85] via-[#ffb703] to-[#00f2fe]">گیم</span>
+        <div class="leading-tight">
+          <span class="font-black text-lg sm:text-xl tracking-wide text-white block">
+            پاتوق <span class="text-[#00f2fe]">گیم</span>
           </span>
-          <span class="text-[10px] text-[#00f2fe] block -mt-1 tracking-widest uppercase font-hud">VICE DISTRICT • FREE PLAY</span>
+          <span class="text-[9px] sm:text-[10px] font-hud text-[#ff2a85] tracking-widest uppercase block">PATOGH GAME • FREE PLAY</span>
         </div>
-      </div>
+      </a>
 
-      <!-- Street Navigation Links -->
-      <nav class="hidden md:flex items-center gap-6 text-sm font-bold text-gray-300">
-        <a href="#city-venues" class="hover:text-[#ff2a85] transition-colors flex items-center gap-1.5"><span>📍</span> مناطق و سرورها</a>
-        <a href="#street-contracts" class="hover:text-[#00f2fe] transition-colors flex items-center gap-1.5"><span>💼</span> قراردادهای مسابقه</a>
-        <a href="#highway-billboard" class="hover:text-[#ffb703] transition-colors flex items-center gap-1.5"><span>🪧</span> بیلبورد اتصال</a>
-        <a href="#most-wanted" class="hover:text-[#ff2a85] transition-colors flex items-center gap-1.5"><span>⭐</span> لیست Most Wanted</a>
+      <!-- Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-6 text-xs font-bold text-gray-200">
+        <a href="#city-venues" class="hover:text-[#ff2a85] transition-colors flex items-center gap-1.5"><span>🏙️</span> مکان‌ها و سرورها</a>
+        <a href="#highway-billboard" class="hover:text-[#00f2fe] transition-colors flex items-center gap-1.5"><span>🪧</span> بیلبورد اتصال</a>
+        <a href="#street-contracts" class="hover:text-[#ffb703] transition-colors flex items-center gap-1.5"><span>📜</span> قراردادهای سرقت</a>
+        <a href="#most-wanted" class="hover:text-[#ff2a85] transition-colors flex items-center gap-1.5"><span>🚨</span> Most Wanted</a>
       </nav>
 
-      <!-- GTA HUD Right Controls (Wanted Level & Admin CCTV) -->
+      <!-- Right HUD: 5 Wanted Stars + CCTV ADMIN -->
       <div class="flex items-center gap-3">
-        <!-- Wanted Level Stars -->
-        <div class="hidden sm:flex items-center gap-1 bg-black/60 px-3 py-1.5 rounded-full border border-amber-500/40" title="درجه هیجان شهر">
-          <span class="text-[10px] font-hud text-gray-400 ml-1">HEAT</span>
-          <span class="wanted-star-active text-xs">★</span>
-          <span class="wanted-star-active text-xs">★</span>
-          <span class="wanted-star-active text-xs">★</span>
-          <span class="wanted-star-active text-xs">★</span>
-          <span class="wanted-star-active text-xs">★</span>
+        <div class="hidden sm:flex items-center gap-1 bg-black/60 px-3 py-1.5 rounded-full border border-amber-400/40" title="سطح هیجان شهر">
+          <span class="wanted-star-active text-sm">★</span>
+          <span class="wanted-star-active text-sm">★</span>
+          <span class="wanted-star-active text-sm">★</span>
+          <span class="wanted-star-active text-sm">★</span>
+          <span class="wanted-star-active text-sm">★</span>
         </div>
 
-        <a href="/admin" class="text-xs bg-zinc-900/90 hover:bg-zinc-800 text-[#00f2fe] px-3 py-2 rounded-lg border border-[#00f2fe]/40 transition font-bold flex items-center gap-1.5">
-          <span>📹</span>
-          <span class="hidden sm:inline">اتاق کنترل CCTV</span>
+        <a href="/admin" class="text-xs font-hud font-bold bg-black/70 hover:bg-[#00f2fe]/15 text-[#00f2fe] px-3.5 py-2 rounded-xl border border-[#00f2fe]/60 shadow-[0_0_15px_rgba(0,242,254,0.25)] transition flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+          <span>CCTV ADMIN</span>
         </a>
       </div>
     </div>
+
+    <!-- Radio Ticker Strip -->
+    {% if broadcast %}
+    <div class="bg-black/85 border-t border-pink-500/20 px-4 py-1.5 text-[11px] sm:text-xs text-[#00f2fe] flex items-center justify-center gap-2.5">
+      <span class="px-2 py-0.5 rounded bg-[#ff2a85] text-white font-hud font-bold text-[9px] tracking-wider uppercase animate-pulse shrink-0">VICE FM 98.5</span>
+      <span class="truncate font-medium">{{ broadcast }}</span>
+    </div>
+    {% endif %}
   </header>
 
-  <!-- Hero Section: Welcome to Leonida / Ocean Drive -->
-  <section class="relative pt-14 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-      
-      <!-- Left / Main Text -->
-      <div class="lg:col-span-7 text-center lg:text-right">
-        <!-- License Plate Badge -->
-        <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-lg bg-gradient-to-r from-amber-100 to-amber-50 text-zinc-900 border-2 border-[#ff2a85] shadow-lg shadow-[#ff2a85]/30 mb-6 transform -rotate-1">
-          <span class="text-[10px] font-black tracking-widest uppercase text-[#7928ca]">LEONIDA</span>
-          <span class="font-gta text-lg tracking-widest text-zinc-900">PATOGH-6</span>
-          <span class="text-xs font-bold text-[#ff2a85]">🌴 FREE</span>
+  <!-- HERO & OCEAN DRIVE BOULEVARD (Graphical Backdrop + Floating GPS Minimap + 3 Venue Server Cards) -->
+  <section class="relative w-full overflow-hidden">
+    <!-- Hero Graphical Image Backdrop -->
+    <div class="relative min-h-[680px] lg:min-h-[760px] flex flex-col justify-between pt-8 pb-14 px-4 sm:px-6 lg:px-8 bg-cover bg-center bg-no-repeat"
+         style="background-image: url('/static/images/hero-boulevard.jpg');">
+      <!-- Cinematic Gradient Overlays for readability -->
+      <div class="absolute inset-0 bg-gradient-to-b from-[#0b0416]/75 via-[#160426]/35 to-[#070210]"></div>
+      <div class="absolute inset-0 bg-gradient-to-l from-[#070210]/85 via-transparent to-[#070210]/45"></div>
+
+      <!-- Top Row of Hero: Headlines + Floating Circular GPS Radar Minimap -->
+      <div class="relative z-10 max-w-7xl mx-auto w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mt-4">
+        
+        <!-- Hero Text & Plate (Right side in RTL) -->
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1 rounded-lg bg-gradient-to-r from-amber-100 to-amber-50 text-zinc-900 border-2 border-[#ff2a85] shadow-lg shadow-[#ff2a85]/40 mb-4 transform -rotate-1">
+            <span class="text-[10px] font-black tracking-widest uppercase text-[#7928ca]">LEONIDA</span>
+            <span class="font-gta text-base tracking-widest text-zinc-900">PATOGH-6</span>
+            <span class="text-[11px] font-bold text-[#ff2a85]">🌴 FREE PLAY</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight drop-shadow-xl mb-4">
+            به خیابان‌های
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff2a85] via-[#ffb703] to-[#00f2fe] neon-pink-text">
+              پاتوق سیتی
+            </span>
+            خوش آمدید
+          </h1>
+
+          <p class="text-sm sm:text-lg text-gray-200 leading-relaxed mb-6 drop-shadow max-w-xl bg-black/35 backdrop-blur-sm p-3.5 rounded-2xl border border-white/10">
+            سرورهای ماینکرفت، کانتر استرایک ۲ و رویدادهای هفتگی با جوایز نقدی — همه در قالب مکان‌ها و کلوب‌های زنده شهر. <strong class="text-[#00f2fe]">۱۰۰٪ رایگان و بدون Pay-to-Win!</strong>
+          </p>
+
+          <!-- Action Buttons + Live Player Stat -->
+          <div class="flex flex-wrap items-center gap-3">
+            <a href="#highway-billboard" class="px-6 py-3 rounded-xl bg-gradient-to-r from-[#ff2a85] to-[#7928ca] hover:brightness-110 text-white font-black text-sm shadow-xl shadow-[#ff2a85]/40 transition flex items-center gap-2">
+              <span>🪧</span>
+              <span>مشاهده بیلبورد ورود به بازی</span>
+            </a>
+            <a href="#street-contracts" class="px-5 py-3 rounded-xl bg-black/75 hover:bg-black/90 border border-[#00f2fe]/70 text-[#00f2fe] font-bold text-sm backdrop-blur-md transition flex items-center gap-2">
+              <span>💼</span>
+              <span>قراردادهای مسابقه</span>
+            </a>
+            <div class="px-4 py-2.5 rounded-xl bg-black/75 border border-emerald-500/40 backdrop-blur-md flex items-center gap-2 text-xs">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span class="text-gray-300">جمعیت آنلاین:</span>
+              <strong class="font-hud text-emerald-400 text-sm" id="stat-players">52+</strong>
+            </div>
+          </div>
         </div>
 
-        <h1 class="text-4xl sm:text-6xl font-black text-white leading-tight mb-6">
-          به خیابان‌های
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff2a85] via-[#ffb703] to-[#00f2fe] neon-pink-text">
-            پاتوق سیتی
-          </span>
-          خوش آمدید
-        </h1>
-
-        <p class="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-          اینجا هر سرور یک کلوب و پاتوق شهری است و هر مسابقه یک قرارداد پرهیجان! 
-          <strong class="text-[#00f2fe]">بدون هزینه، بدون محدودیت و بدون Pay-to-Win</strong> وارد شهر شوید.
-        </p>
-
-        <!-- Hero Action Buttons -->
-        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
-          <a href="#city-venues" class="px-7 py-4 rounded-xl bg-gradient-to-r from-[#ff2a85] to-[#7928ca] hover:brightness-110 font-black text-white shadow-xl shadow-[#ff2a85]/40 transition transform hover:-translate-y-0.5 flex items-center gap-2">
-            <span>🏎️</span>
-            <span>گشت‌وگذار در سرورهای شهر</span>
-          </a>
-          <a href="#highway-billboard" class="px-7 py-4 rounded-xl bg-black/70 hover:bg-black/90 border-2 border-[#00f2fe] font-bold text-[#00f2fe] shadow-lg shadow-[#00f2fe]/20 transition flex items-center gap-2">
-            <span>🪧</span>
-            <span>مشاهده بیلبورد ورود</span>
-          </a>
+        <!-- Floating Circular GPS Radar Minimap (Matches Top-Right of Mockup) -->
+        <div class="hidden md:flex flex-col items-center gap-2 bg-black/55 backdrop-blur-md p-4 rounded-3xl border border-[#00f2fe]/40 shadow-[0_0_30px_rgba(0,242,254,0.2)]">
+          <div class="radar-hud flex items-center justify-center">
+            <div class="radar-sweep"></div>
+            <span class="absolute top-1 text-[9px] font-hud text-[#00f2fe] font-bold">N</span>
+            <span class="absolute bottom-1 text-[9px] font-hud text-[#00f2fe] font-bold">S</span>
+            <span class="absolute left-1.5 text-[9px] font-hud text-[#00f2fe] font-bold">W</span>
+            <span class="absolute right-1.5 text-[9px] font-hud text-[#00f2fe] font-bold">E</span>
+            <div class="w-3 h-3 bg-[#ff2a85] rounded-full shadow-[0_0_10px_#ff2a85] z-10"></div>
+            <div class="absolute top-6 left-6 w-1.5 h-1.5 bg-[#ffb703] rounded-full animate-ping"></div>
+            <div class="absolute bottom-6 right-5 w-1.5 h-1.5 bg-emerald-400 rounded-full"></div>
+          </div>
+          <div class="text-center">
+            <div class="text-[10px] font-hud text-[#00f2fe] tracking-widest">OCEAN VIEW GPS</div>
+            <button onclick="refreshServers()" class="mt-1 text-[10px] text-gray-300 hover:text-white flex items-center gap-1 mx-auto">
+              <span id="refresh-icon">🔄</span> اسکن وضعیت سرورها
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- Right / Interactive Vice City GPS Radar & City Stats Card -->
-      <div class="lg:col-span-5 flex flex-col items-center">
-        <div class="w-full max-w-md bg-black/75 backdrop-blur-md rounded-3xl p-6 vice-card-cyan relative overflow-hidden">
-          <div class="scanlines absolute inset-0 opacity-40"></div>
-
-          <div class="flex items-center justify-between mb-6 relative z-10">
-            <div>
-              <span class="text-[10px] font-hud text-[#00f2fe] uppercase tracking-widest block">GPS RADAR ONLINE</span>
-              <h3 class="text-lg font-black text-white">بلوار پاتوق • منطقه ۶</h3>
-            </div>
-            <!-- Animated Minimap Radar -->
-            <div class="radar-hud flex items-center justify-center shrink-0">
-              <div class="radar-sweep"></div>
-              <div class="w-2.5 h-2.5 bg-[#ff2a85] rounded-full shadow-[0_0_8px_#ff2a85] z-10"></div>
-              <!-- Blips -->
-              <div class="absolute top-5 left-6 w-1.5 h-1.5 bg-[#ffb703] rounded-full animate-ping"></div>
-              <div class="absolute bottom-6 right-5 w-1.5 h-1.5 bg-[#00f2fe] rounded-full"></div>
-            </div>
+      <!-- Bottom Row of Hero: 3 GRAPHICAL CITY BUILDING SERVER CARDS (Matches Mockup Layout) -->
+      <div id="city-venues" class="relative z-10 max-w-7xl mx-auto w-full mt-12">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2 bg-black/70 backdrop-blur-md px-4 py-1.5 rounded-full border border-purple-500/40">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-xs font-bold text-white">مکان‌های فعال شهر (کلیک کنید و آی‌پی را کپی بگیرید)</span>
           </div>
+        </div>
 
-          <!-- HUD Telemetry Metrics -->
-          <div class="grid grid-cols-2 gap-3 relative z-10">
-            <div class="bg-zinc-900/90 border border-purple-500/30 rounded-2xl p-3.5">
-              <div class="text-xs text-gray-400">جمعیت آنلاین شهر</div>
-              <div class="text-2xl font-black text-[#ff2a85] font-hud mt-1" id="stat-players">52+</div>
-            </div>
-            <div class="bg-zinc-900/90 border border-cyan-500/30 rounded-2xl p-3.5">
-              <div class="text-xs text-gray-400">بلیط ورود شهر</div>
-              <div class="text-2xl font-black text-[#00f2fe] mt-1">رایگان</div>
-            </div>
-            <div class="bg-zinc-900/90 border border-amber-500/30 rounded-2xl p-3.5">
-              <div class="text-xs text-gray-400">وضعیت ترافیک (پینگ)</div>
-              <div class="text-xl font-black text-[#ffb703] font-hud mt-1">&lt; 24ms</div>
-            </div>
-            <div class="bg-zinc-900/90 border border-emerald-500/30 rounded-2xl p-3.5">
-              <div class="text-xs text-gray-400">پاکسازی متقلبین</div>
-              <div class="text-xl font-black text-emerald-400 mt-1">ضد چیت فعال</div>
-            </div>
-          </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="server-list">
+          {% for server in servers %}
+          <div class="venue-card h-[310px] flex flex-col justify-between p-5 bg-cover bg-center {% if loop.index == 1 %}venue-card-pink{% elif loop.index == 2 %}venue-card-cyan{% else %}venue-card-amber{% endif %}"
+               style="background-image: url('{{ server.image or '/static/images/malibu-club.jpg' }}');">
+            
+            <!-- Dark atmospheric vignette over venue photo -->
+            <div class="absolute inset-0 bg-gradient-to-t from-[#070210] via-[#070210]/65 to-[#070210]/30"></div>
 
-          <!-- Radio Audio Toggle (Vice FM UI) -->
-          <div class="mt-5 pt-4 border-t border-gray-800 flex items-center justify-between text-xs relative z-10">
-            <div class="flex items-center gap-2 text-gray-300">
-              <span class="text-lg">📻</span>
-              <div>
-                <div class="font-bold text-white">VICE FM 98.5</div>
-                <div class="text-[10px] text-[#ff2a85]">پخش زنده از رادیو خیابان</div>
+            <!-- Card Top: ONLINE Badge & Ping -->
+            <div class="relative z-10 flex items-center justify-between">
+              <span class="text-[11px] font-hud font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/60 backdrop-blur-md flex items-center gap-1.5 shadow">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                {{ server.status|upper }}
+              </span>
+              <span class="text-[11px] font-hud bg-black/75 text-[#00f2fe] px-2.5 py-1 rounded-lg border border-white/10 backdrop-blur-md">
+                📶 {{ server.ping }}
+              </span>
+            </div>
+
+            <!-- Card Bottom: Venue Title, Game, Players, & JOIN / COPY IP -->
+            <div class="relative z-10">
+              <div class="text-[11px] font-hud font-bold text-[#ff2a85] uppercase tracking-wider mb-0.5 drop-shadow">
+                {{ server.venue_name or 'CITY VENUE' }}
+              </div>
+              <h3 class="text-lg sm:text-xl font-black text-white leading-snug mb-1 drop-shadow">
+                {{ server.name }}
+              </h3>
+              <p class="text-[11px] text-gray-300 line-clamp-2 mb-3">
+                {{ server.description }}
+              </p>
+
+              <!-- Online Count Bar -->
+              <div class="mb-3">
+                <div class="flex justify-between text-[11px] text-gray-300 mb-1">
+                  <span>{{ server.game }}</span>
+                  <span class="font-hud text-white">{{ server.players }} / {{ server.max_players }}</span>
+                </div>
+                <div class="w-full bg-black/70 rounded-full h-1.5 overflow-hidden border border-white/10">
+                  <div class="bg-gradient-to-r from-[#ff2a85] via-[#ffb703] to-[#00f2fe] h-full rounded-full" style="width: {{ (server.players / server.max_players * 100)|round }}%"></div>
+                </div>
+              </div>
+
+              <!-- JOIN / COPY IP Button Row -->
+              <div class="flex items-center gap-2 bg-black/85 backdrop-blur-md border border-white/20 rounded-xl p-1.5">
+                <code class="text-xs text-[#00f2fe] font-hud flex-1 text-center truncate px-2">
+                  {{ server.ip }}{% if server.port and server.port != '25565' %}:{{ server.port }}{% endif %}
+                </code>
+                <button onclick="copyToClipboard('{{ server.ip }}')" class="bg-gradient-to-r from-[#00f2fe] to-[#0284c7] hover:brightness-110 text-zinc-950 font-black text-[11px] px-3 py-1.5 rounded-lg transition shadow-md shrink-0 font-hud">
+                  JOIN / COPY IP
+                </button>
               </div>
             </div>
-            <button onclick="refreshServers()" class="px-3 py-1.5 rounded-lg bg-[#ff2a85]/20 hover:bg-[#ff2a85]/40 text-[#ff2a85] border border-[#ff2a85]/40 font-bold transition flex items-center gap-1">
-              <span id="refresh-icon">🔄</span>
-              <span>اسکن رادار</span>
-            </button>
           </div>
+          {% endfor %}
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- Asphalt Highway Divider -->
-  <div class="w-full h-4 bg-zinc-900 border-y border-zinc-700 flex items-center overflow-hidden">
-    <div class="w-full h-0.5 border-t-2 border-dashed border-[#ffb703]/70"></div>
-  </div>
-
-  <!-- SECTION 1: City Venues & Hotspots (Game Servers) -->
-  <section id="city-venues" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
-      <div>
-        <div class="text-xs font-hud text-[#ff2a85] uppercase tracking-widest mb-1">CITY HOTSPOTS & VENUES</div>
-        <h2 class="text-3xl sm:text-4xl font-black text-white">مکان‌ها و کلوب‌های شهر (سرورهای بازی)</h2>
-        <p class="text-sm text-gray-400 mt-1">هر بازی در یک منطقه از شهر پاتوق میزبانی می‌شود. مکان مورد نظرتان را انتخاب و آی‌پی را کپی کنید.</p>
-      </div>
+  <!-- INTERACTIVE STREET SCENE & GIANT HIGHWAY BILLBOARD (Using Custom Artwork billboard-street.jpg) -->
+  <section id="highway-billboard" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+    <div class="text-center mb-8">
+      <span class="text-xs font-hud text-[#ffb703] uppercase tracking-widest">OCEAN DRIVE HIGHWAY • INTERACTIVE CITY VIEW</span>
+      <h2 class="text-2xl sm:text-4xl font-black text-white mt-1">بیلبورد راهنمای اتصال در خیابان وایس‌سیتی</h2>
+      <p class="text-xs sm:text-sm text-gray-400 mt-1">مراحل ورود به بازی‌ها روی بیلبورد اتوبان درج شده است؛ روی نقاط شهر هم می‌توانید کلیک کنید!</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-7" id="server-list">
-      {% for server in servers %}
-      <div class="rounded-2xl bg-[#110820]/90 backdrop-blur-md p-6 flex flex-col justify-between transition duration-300 hover:-translate-y-1 relative group {% if loop.index == 1 %}vice-card-pink{% elif loop.index == 2 %}vice-card-cyan{% else %}vice-card-amber{% endif %}">
-        
+    <!-- Desktop Interactive Graphical Scene Container -->
+    <div class="relative rounded-3xl overflow-hidden border-2 border-purple-500/40 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)] bg-black">
+      <img src="/static/images/billboard-street.jpg" alt="خیابان وایس‌سیتی و بیلبورد راهنمای پاتوق گیم" class="w-full h-auto block object-cover min-h-[340px]">
+
+      <!-- Subtle gradient at bottom for caption -->
+      <div class="hidden lg:block absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
+
+      <!-- DESKTOP OVERLAY: Inside the Actual Highway Billboard Screen in the Illustration! -->
+      <div class="hidden lg:flex flex-col justify-between absolute top-[14%] left-[24.2%] w-[25.5%] h-[29.5%] p-3.5 billboard-overlay bg-black/30 rounded-sm overflow-hidden text-center">
         <div>
-          <!-- District / Zone Badge & Wanted Heat -->
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded-md bg-black/60 border border-white/10 text-[#00f2fe] flex items-center gap-1">
-              <span>📍</span> {{ server.city_zone or 'مرکز شهر' }}
-            </span>
-            <div class="flex items-center gap-0.5" title="سطح هیجان">
-              {% for i in range(server.wanted_level or 3) %}
-              <span class="text-[#ffb703] text-xs">★</span>
-              {% endfor %}
-            </div>
+          <div class="text-[11px] font-hud font-black text-[#00f2fe] tracking-wider uppercase neon-cyan-text">
+            01 / 02 / 03 — HOW TO JOIN FREE
           </div>
-
-          <!-- Venue Neon Title -->
-          <div class="text-xs font-bold uppercase tracking-wider text-[#ff2a85] mb-1">
-            {{ server.venue_name or 'پاتوق شهری' }}
-          </div>
-          <h3 class="text-xl font-black text-white mb-2 leading-snug">
-            {{ server.name }}
-          </h3>
-
-          <!-- Status & Ping -->
-          <div class="flex items-center gap-3 text-xs mb-4">
-            <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-              {{ server.status|upper }}
-            </span>
-            <span class="text-gray-400 font-hud">📶 {{ server.ping }}</span>
-            <span class="text-purple-300">{{ server.game }}</span>
-          </div>
-
-          <p class="text-xs text-gray-300 leading-relaxed mb-6">
-            {{ server.description }}
-          </p>
-        </div>
-
-        <div>
-          <!-- Crowd Capacity Meter -->
-          <div class="mb-4">
-            <div class="flex justify-between text-xs text-gray-400 mb-1.5">
-              <span>افراد حاضر در محل</span>
-              <span><strong class="text-white font-hud">{{ server.players }}</strong> / {{ server.max_players }}</span>
-            </div>
-            <div class="w-full bg-black/80 rounded-full h-2 border border-gray-800 overflow-hidden">
-              <div class="bg-gradient-to-r from-[#ff2a85] via-[#ffb703] to-[#00f2fe] h-full rounded-full transition-all duration-500" style="width: {{ (server.players / server.max_players * 100)|round }}%"></div>
-            </div>
-          </div>
-
-          <!-- Street Address / IP Box -->
-          <div class="flex items-center gap-2 bg-black/90 border border-purple-500/40 rounded-xl p-2">
-            <code class="text-xs text-[#00f2fe] font-hud flex-1 text-center select-all truncate">
-              {{ server.ip }}{% if server.port and server.port != '25565' %}:{{ server.port }}{% endif %}
-            </code>
-            <button onclick="copyToClipboard('{{ server.ip }}')" class="bg-gradient-to-r from-[#ff2a85] to-[#7928ca] hover:brightness-110 text-white text-xs px-3.5 py-2 rounded-lg font-bold transition shadow-md">
-              ورود / کپی آدرس
-            </button>
+          <div class="text-xs font-black text-white mt-0.5">
+            راهنمای ورود رایگان به سرورهای پاتوق
           </div>
         </div>
 
+        <div class="grid grid-cols-3 gap-1.5 my-1 text-center">
+          <div class="bg-black/75 border border-[#ff2a85]/50 rounded-lg p-1.5">
+            <div class="font-hud text-sm font-black text-[#ff2a85]">01</div>
+            <div class="text-[10px] font-bold text-white">کپی آی‌پی</div>
+            <div class="text-[9px] text-gray-300">انتخاب کلوب</div>
+          </div>
+          <div class="bg-black/75 border border-[#00f2fe]/50 rounded-lg p-1.5">
+            <div class="font-hud text-sm font-black text-[#00f2fe]">02</div>
+            <div class="text-[10px] font-bold text-white">اجرای بازی</div>
+            <div class="text-[9px] text-gray-300">رسمی یا کرک</div>
+          </div>
+          <div class="bg-black/75 border border-[#ffb703]/50 rounded-lg p-1.5">
+            <div class="font-hud text-sm font-black text-[#ffb703]">03</div>
+            <div class="text-[10px] font-bold text-white">ورود رایگان</div>
+            <div class="text-[9px] text-gray-300">شروع رقابت!</div>
+          </div>
+        </div>
+
+        <button onclick="copyToClipboard('play.patoghgame.ir')" class="mx-auto px-4 py-1 rounded-full bg-[#090d16]/90 border-2 border-[#00f2fe] text-[#00f2fe] font-hud text-xs font-bold shadow-[0_0_15px_rgba(0,242,254,0.6)] hover:scale-105 transition cursor-pointer">
+          play.patoghgame.ir 📋
+        </button>
       </div>
-      {% endfor %}
+
+      <!-- INTERACTIVE HOTSPOT PIN 1: Vice Port Docks (Left) -->
+      <button onclick="copyToClipboard('cs2.patoghgame.ir')" class="hidden md:flex items-center gap-2 absolute top-[55%] left-[7%] bg-black/85 hover:bg-black border border-[#00f2fe] px-3 py-1.5 rounded-full shadow-lg city-hotspot-ping cursor-pointer transition">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#00f2fe]"></span>
+        <span class="text-[11px] font-bold text-white">اسکله وایس‌پورت (CS2)</span>
+      </button>
+
+      <!-- INTERACTIVE HOTSPOT PIN 2: Malibu Club (Right) -->
+      <button onclick="copyToClipboard('play.patoghgame.ir')" class="hidden md:flex items-center gap-2 absolute top-[58%] right-[6%] bg-black/85 hover:bg-black border border-[#ff2a85] px-3 py-1.5 rounded-full shadow-lg city-hotspot-ping cursor-pointer transition">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#ff2a85]"></span>
+        <span class="text-[11px] font-bold text-white">کلوب مالیبو (Minecraft)</span>
+      </button>
+    </div>
+
+    <!-- Mobile / Tablet Clean Billboard Card Fallback (visible < lg) -->
+    <div class="lg:hidden mt-4 bg-[#120822] border-2 border-[#00f2fe]/60 rounded-2xl p-5 shadow-xl text-center">
+      <div class="text-xs font-hud font-bold text-[#00f2fe] mb-1">01 / 02 / 03 — HOW TO JOIN FREE</div>
+      <h3 class="text-lg font-black text-white mb-4">راهنمای ۳ مرحله‌ای ورود به سرورهای پاتوق</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4 text-right">
+        <div class="bg-black/60 border border-[#ff2a85]/40 rounded-xl p-3">
+          <span class="font-hud text-[#ff2a85] font-black text-sm">01.</span>
+          <span class="text-xs font-bold text-white mr-1">کپی آی‌پی سرور دلخواه</span>
+        </div>
+        <div class="bg-black/60 border border-[#00f2fe]/40 rounded-xl p-3">
+          <span class="font-hud text-[#00f2fe] font-black text-sm">02.</span>
+          <span class="text-xs font-bold text-white mr-1">ورود به Multiplayer بازی</span>
+        </div>
+        <div class="bg-black/60 border border-[#ffb703]/40 rounded-xl p-3">
+          <span class="font-hud text-[#ffb703] font-black text-sm">03.</span>
+          <span class="text-xs font-bold text-white mr-1">اتصال رایگان (اورجینال و کرک)</span>
+        </div>
+      </div>
+      <button onclick="copyToClipboard('play.patoghgame.ir')" class="px-5 py-2 rounded-full bg-black border-2 border-[#00f2fe] text-[#00f2fe] font-hud text-xs font-bold shadow-[0_0_15px_rgba(0,242,254,0.45)]">
+        play.patoghgame.ir (کلیک برای کپی)
+      </button>
     </div>
   </section>
 
-  <!-- SECTION 2: GIANT HIGHWAY BILLBOARD (Connection Guide) -->
-  <section id="highway-billboard" class="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full relative">
-    <div class="text-center mb-14">
-      <span class="text-xs font-hud text-[#ffb703] uppercase tracking-widest">OCEAN DRIVE HIGHWAY • EXIT 06</span>
-      <h2 class="text-3xl font-black text-white mt-1">بیلبورد راهنمای شهروندان جدید</h2>
-    </div>
-
-    <!-- Physical Billboard Construction -->
-    <div class="relative mx-auto">
-      <!-- Overhead Spotlight Lamps -->
-      <div class="hidden sm:flex justify-around px-16 relative z-20">
-        <div class="billboard-spotlight"></div>
-        <div class="billboard-spotlight"></div>
-        <div class="billboard-spotlight"></div>
-      </div>
-
-      <!-- Billboard Frame -->
-      <div class="billboard-frame rounded-2xl p-6 sm:p-10 bg-gradient-to-br from-[#18082b] via-[#10061f] to-[#080312] overflow-hidden">
-        <!-- Graffiti / Neon Corner Accent -->
-        <div class="absolute -top-6 -right-6 bg-[#ff2a85] text-white font-gta text-sm px-8 py-2 rotate-12 shadow-lg z-20">
-          100% FREE ENTRY!
-        </div>
-
-        <div class="relative z-10">
-          <div class="flex flex-col md:flex-row items-start md:items-center justify-between border-b border-purple-500/30 pb-6 mb-8 gap-4">
-            <div>
-              <h3 class="text-2xl sm:text-4xl font-black text-white neon-cyan-text">
-                چطور وارد سرورهای پاتوق سیتی شویم؟
-              </h3>
-              <p class="text-sm text-[#ffb703] mt-1 font-medium">
-                تبلیغ ویژه اتوبان وایس‌سیتی: پشتیبانی کامل از اکانت‌های کرک (TLauncher) و اورجینال!
-              </p>
-            </div>
-            <div class="bg-black/80 border border-[#ff2a85] px-4 py-2 rounded-xl text-center">
-              <span class="text-[10px] text-gray-400 block">آدرس اصلی ماینکرفت</span>
-              <code class="text-sm font-hud text-[#00f2fe] font-bold">play.patoghgame.ir</code>
-            </div>
-          </div>
-
-          <!-- 3 Billboard Panels -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-black/60 border border-[#ff2a85]/40 rounded-xl p-5 relative">
-              <div class="font-gta text-3xl text-[#ff2a85] mb-2">STEP 01</div>
-              <h4 class="font-bold text-white text-base mb-2">پلاک مقصد را بردارید</h4>
-              <p class="text-xs text-gray-300 leading-relaxed">
-                از بخش مکان‌های شهر در بالا، کلوب یا سرور مورد نظرتان را انتخاب و دکمه «ورود / کپی آدرس» را بزنید.
-              </p>
-            </div>
-
-            <div class="bg-black/60 border border-[#00f2fe]/40 rounded-xl p-5 relative">
-              <div class="font-gta text-3xl text-[#00f2fe] mb-2">STEP 02</div>
-              <h4 class="font-bold text-white text-base mb-2">به شهر متصل شوید</h4>
-              <p class="text-xs text-gray-300 leading-relaxed">
-                وارد بخش <span class="text-white font-mono">Multiplayer &gt; Add Server</span> در بازی شوید، آی‌پی را وارد کنید و بدون نیاز به فیلترشکن وصل شوید.
-              </p>
-            </div>
-
-            <div class="bg-black/60 border border-[#ffb703]/40 rounded-xl p-5 relative">
-              <div class="font-gta text-3xl text-[#ffb703] mb-2">STEP 03</div>
-              <h4 class="font-bold text-white text-base mb-2">قرارداد مسابقه امضا کنید</h4>
-              <p class="text-xs text-gray-300 leading-relaxed">
-                برای شرکت در تورنمنت‌های نقدی، در بخش قراردادهای خیابان پایین صفحه اسم خود را ثبت کنید تا در رادیو دیسکورد دعوت شوید.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Giant Steel Billboard Pillars -->
-      <div class="flex justify-around px-16 sm:px-32">
-        <div class="w-6 sm:w-10 h-16 bg-gradient-to-r from-zinc-800 via-zinc-600 to-zinc-800 border-x border-zinc-950 shadow-inner"></div>
-        <div class="w-6 sm:w-10 h-16 bg-gradient-to-r from-zinc-800 via-zinc-600 to-zinc-800 border-x border-zinc-950 shadow-inner"></div>
-      </div>
-      <!-- Concrete Base -->
-      <div class="w-full h-3 bg-zinc-800 rounded-full border-t border-zinc-600"></div>
-    </div>
-  </section>
-
-  <!-- SECTION 3: Street Heists & Race Contracts (Events & Tournaments) -->
-  <section id="street-contracts" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+  <!-- SECTION 3: TORN-PAPER HEIST CONTRACTS (Events & Tournaments - Exact Mockup Style) -->
+  <section id="street-contracts" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
     <div class="text-center max-w-2xl mx-auto mb-12">
-      <div class="text-xs font-hud text-[#00f2fe] uppercase tracking-widest mb-1">UNDERGROUND STREET CONTRACTS</div>
-      <h2 class="text-3xl sm:text-4xl font-black text-white">قراردادهای مسابقه و رویدادهای شهر</h2>
-      <p class="text-sm text-gray-400 mt-2">این ماموریت‌ها جوایز نقدی دارند! قرارداد مورد نظرتان را بپذیرید و آماده رقابت شوید.</p>
+      <div class="text-xs font-hud text-[#ffb703] uppercase tracking-widest mb-1">UNDERGROUND HEIST CONTRACTS</div>
+      <h2 class="text-3xl sm:text-4xl font-black text-white">قراردادهای مسابقه و تورنمنت‌های شهر</h2>
+      <p class="text-sm text-gray-400 mt-2">قرارداد دلخواه خود را امضا کنید و به صورت کاملاً رایگان برای جایزه نقدی رقابت کنید.</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-7" id="event-list">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="event-list">
       {% for event in events %}
-      <div class="rounded-2xl bg-[#140a24]/95 border-2 border-dashed border-[#ffb703]/40 p-6 flex flex-col justify-between hover:border-[#ff2a85] transition duration-300 relative overflow-hidden group">
-        <!-- Top Contract Stamp -->
-        <div class="flex items-center justify-between mb-4">
-          <span class="text-[11px] font-black px-2.5 py-1 rounded bg-[#ffb703]/20 text-[#ffb703] border border-[#ffb703]/40">
-            {{ event.tag or 'قرارداد شهری' }} • {{ event.game }}
-          </span>
-          <span class="text-[11px] font-hud text-[#ff2a85]">CONTRACT #{{ loop.index }}</span>
-        </div>
-
+      <div class="heist-contract-box rounded-2xl p-5 flex flex-col justify-between relative">
         <div>
-          <h3 class="text-xl font-black text-white mb-2 group-hover:text-[#ffb703] transition-colors">
-            {{ event.title }}
-          </h3>
+          <!-- Top Split Layout: Torn Paper Stamp + Contract Info (Exact Mockup Match) -->
+          <div class="flex items-stretch gap-3.5 mb-4">
+            <!-- Torn Paper Badge -->
+            <div class="torn-paper-stamp w-24 shrink-0 p-2.5 flex flex-col items-center justify-center text-center transform -rotate-2">
+              <span class="font-gta text-base leading-none tracking-wide text-zinc-900">HEIST</span>
+              <span class="font-gta text-xs leading-tight tracking-wide text-[#9a3412] border-y border-zinc-800/40 py-0.5 my-0.5 w-full">CONTRACT</span>
+              <span class="text-[9px] font-black text-zinc-800 mt-0.5">{{ event.game }}</span>
+            </div>
 
-          <div class="text-xs text-[#00f2fe] font-medium flex items-center gap-2 mb-3">
-            <span>🕒 {{ event.date }}</span>
+            <!-- Contract Header Info -->
+            <div class="flex-1 flex flex-col justify-center">
+              <div class="text-[10px] font-hud text-[#ffb703] uppercase tracking-wider mb-0.5">
+                {{ event.tag or 'STREET MISSION' }}
+              </div>
+              <h3 class="text-base font-black text-white leading-snug mb-1.5">
+                {{ event.title }}
+              </h3>
+              <div class="text-[11px] text-[#00f2fe] font-medium">
+                🕒 {{ event.date }}
+              </div>
+            </div>
           </div>
 
-          <div class="bg-black/60 border border-emerald-500/30 rounded-xl p-3 mb-4">
-            <span class="text-[10px] text-gray-400 block">پاداش ماموریت (Bounty):</span>
+          <!-- Bounty Box -->
+          <div class="bg-black/65 border border-emerald-500/35 rounded-xl px-3.5 py-2 mb-3 flex items-center justify-between">
+            <span class="text-[11px] text-gray-400">جایزه (Prize Pool):</span>
             <span class="text-xs font-black text-emerald-400">💵 {{ event.prize }}</span>
           </div>
 
-          <p class="text-xs text-gray-300 leading-relaxed mb-6">
+          <p class="text-xs text-gray-300 leading-relaxed mb-5">
             {{ event.description }}
           </p>
         </div>
 
         <div>
-          <div class="flex justify-between items-center text-xs text-gray-400 mb-3">
-            <span>ظرفیت نفرات:</span>
+          <div class="flex justify-between items-center text-[11px] text-gray-400 mb-2.5">
+            <span>ظرفیت پذیرش قرارداد:</span>
             <span class="font-bold text-white font-hud">{{ event.registered }} / {{ event.capacity }}</span>
           </div>
 
           {% if event.registered >= event.capacity %}
-          <button disabled class="w-full py-3 rounded-xl bg-zinc-800 text-gray-500 font-bold text-sm cursor-not-allowed">
-            پرونده بسته شد (تکمیل ظرفیت)
+          <button disabled class="w-full py-2.5 rounded-xl bg-zinc-800 text-gray-500 font-bold text-xs cursor-not-allowed font-hud">
+            CONTRACT CLOSED
           </button>
           {% else %}
-          <button onclick="openRegisterModal('{{ event.id }}', '{{ event.title }}')" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#ffb703] to-[#ff2a85] hover:brightness-110 text-zinc-950 font-black text-sm shadow-lg shadow-[#ff2a85]/25 transition">
-            پذیرش قرارداد (ثبت‌نام رایگان) ✍️
+          <button onclick="openRegisterModal('{{ event.id }}', '{{ event.title }}')" class="w-full py-2.5 rounded-xl bg-black/80 hover:bg-[#ffb703] text-[#ffb703] hover:text-zinc-950 border-2 border-[#ffb703] font-black text-xs transition shadow-lg shadow-[#ffb703]/15 flex items-center justify-center gap-2">
+            <span>پذیرش قرارداد (ACCEPT CONTRACT)</span>
+            <span>✍️</span>
           </button>
           {% endif %}
         </div>
@@ -415,37 +368,37 @@
     </div>
   </section>
 
-  <!-- SECTION 4: VCPD Most Wanted & City Payphone (Leaderboard + Community) -->
+  <!-- SECTION 4: VCPD MOST WANTED & CITY PAYPHONE -->
   <section id="most-wanted" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-7">
       
-      <!-- Most Wanted Board (7 cols) -->
-      <div class="lg:col-span-7 bg-[#110820]/90 vice-card-amber rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+      <!-- Most Wanted List -->
+      <div class="lg:col-span-7 bg-[#110820]/90 border border-amber-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl">
         <div class="flex items-center justify-between mb-6 border-b border-amber-500/20 pb-4">
           <div>
             <span class="text-[10px] font-hud text-[#ffb703] uppercase tracking-widest">VCPD POLICE DATABASE</span>
-            <h3 class="text-2xl font-black text-white flex items-center gap-2">
+            <h3 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
               <span>🚨</span>
-              <span>لیست تحت تعقیب‌ترین گیمرها (Most Wanted)</span>
+              <span>برترین‌های شهر (Most Wanted)</span>
             </h3>
           </div>
-          <span class="hidden sm:inline-block text-xs font-hud px-3 py-1 bg-rose-600/20 text-rose-400 border border-rose-500/40 rounded-lg">TOP PLAYERS</span>
+          <span class="text-[10px] font-hud px-2.5 py-1 bg-rose-600/20 text-rose-400 border border-rose-500/40 rounded-lg">SEASON 01</span>
         </div>
 
         <div class="space-y-3">
           {% for player in most_wanted %}
-          <div class="bg-black/70 border border-gray-800 hover:border-[#ffb703]/50 rounded-xl p-4 flex items-center justify-between transition">
-            <div class="flex items-center gap-4">
-              <div class="w-10 h-10 rounded-lg bg-[#ffb703]/15 border border-[#ffb703]/40 flex items-center justify-center font-hud font-black text-[#ffb703]">
+          <div class="bg-black/70 border border-gray-800 hover:border-[#ffb703]/50 rounded-xl p-3.5 flex items-center justify-between transition">
+            <div class="flex items-center gap-3.5">
+              <div class="w-9 h-9 rounded-lg bg-[#ffb703]/15 border border-[#ffb703]/40 flex items-center justify-center font-hud font-black text-sm text-[#ffb703]">
                 #{{ player.rank }}
               </div>
               <div>
-                <div class="font-bold text-white text-sm sm:text-base">{{ player.name }}</div>
-                <div class="text-xs text-[#00f2fe]">{{ player.game }}</div>
+                <div class="font-bold text-white text-sm">{{ player.name }}</div>
+                <div class="text-[11px] text-[#00f2fe]">{{ player.game }}</div>
               </div>
             </div>
             <div class="text-left">
-              <div class="text-xs sm:text-sm font-black text-[#ff2a85] font-hud">{{ player.bounty }}</div>
+              <div class="text-xs font-black text-[#ff2a85] font-hud">{{ player.bounty }}</div>
               <div class="text-[10px] text-amber-400">{{ player.status }}</div>
             </div>
           </div>
@@ -453,27 +406,27 @@
         </div>
       </div>
 
-      <!-- Street Payphone & Radio Booth (Community 5 cols) -->
-      <div id="community" class="lg:col-span-5 bg-gradient-to-b from-[#1a0b2e] to-[#0a0414] vice-card-pink rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative">
+      <!-- Street Payphone Community -->
+      <div id="community" class="lg:col-span-5 bg-gradient-to-b from-[#1a0b2e] to-[#0a0414] border border-[#ff2a85]/40 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl">
         <div>
-          <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center justify-between mb-3">
             <span class="text-[10px] font-hud text-[#ff2a85] uppercase tracking-widest">STREET PAYPHONE BOOTH</span>
             <span class="text-2xl">☎️</span>
           </div>
-          <h3 class="text-2xl font-black text-white mb-3">باجه تلفن همگانی و خط ارتباطی</h3>
+          <h3 class="text-xl sm:text-2xl font-black text-white mb-2">باجه تلفن همگانی کامیونیتی</h3>
           <p class="text-xs sm:text-sm text-gray-300 leading-relaxed mb-6">
-            برای تشکیل اسکواد، دریافت جوایز تورنمنت، یا گوش دادن به قرارهای مخفیانه شهر، از باجه تلفن به دیسکورد و تلگرام ما وصل شوید.
+            برای تیم‌یابی، هماهنگی زمان مسابقات و دریافت جوایز نقدی از باجه تلفن وایس‌سیتی به دیسکورد و تلگرام وصل شوید.
           </p>
         </div>
 
         <div class="space-y-3">
-          <a href="https://discord.gg" target="_blank" class="w-full py-3.5 px-5 rounded-xl bg-[#5865F2] hover:bg-[#4752c4] text-white font-bold text-sm shadow-lg shadow-indigo-900/40 transition flex items-center justify-between">
-            <span class="flex items-center gap-2"><span>💬</span> کانال دیسکورد پاتوق سیتی</span>
-            <span class="font-hud text-xs opacity-75">CONNECT ↗</span>
+          <a href="https://discord.gg" target="_blank" class="w-full py-3 px-4 rounded-xl bg-[#5865F2] hover:bg-[#4752c4] text-white font-bold text-sm shadow-lg shadow-indigo-900/40 transition flex items-center justify-between">
+            <span class="flex items-center gap-2"><span>💬</span> سرور دیسکورد پاتوق گیم</span>
+            <span class="font-hud text-xs opacity-80">JOIN ↗</span>
           </a>
-          <a href="https://t.me" target="_blank" class="w-full py-3.5 px-5 rounded-xl bg-[#229ED9] hover:bg-[#1b80b0] text-white font-bold text-sm shadow-lg shadow-cyan-900/40 transition flex items-center justify-between">
-            <span class="flex items-center gap-2"><span>📢</span> کانال تلگرام اخبار شهر</span>
-            <span class="font-hud text-xs opacity-75">JOIN ↗</span>
+          <a href="https://t.me" target="_blank" class="w-full py-3 px-4 rounded-xl bg-[#229ED9] hover:bg-[#1b80b0] text-white font-bold text-sm shadow-lg shadow-cyan-900/40 transition flex items-center justify-between">
+            <span class="flex items-center gap-2"><span>📢</span> کانال تلگرام پاتوق سیتی</span>
+            <span class="font-hud text-xs opacity-80">OPEN ↗</span>
           </a>
         </div>
       </div>
@@ -482,26 +435,26 @@
   </section>
 
   <!-- Footer -->
-  <footer class="mt-auto border-t border-purple-500/20 bg-black/90 py-8 px-4 text-center text-xs text-gray-500">
+  <footer class="mt-auto border-t border-purple-500/20 bg-black/90 py-7 px-4 text-center text-xs text-gray-500">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-2">
         <span class="font-gta text-lg text-[#ff2a85]">VI</span>
         <span class="font-bold text-gray-200">پاتوق گیم (PatoghGame)</span>
-        <span>— دنیای رایگان سرورها و مسابقات خیابانی</span>
+        <span>— شهر رایگان بازی و تورنمنت‌ها</span>
       </div>
       <div class="font-hud text-[11px] text-gray-400">
-        POWERED BY PAASTA CLOUD • LEONIDA 2026
+        HOSTED ON PAASTA CLOUD • VICE EDITION
       </div>
     </div>
   </footer>
 
-  <!-- Street Contract Modal (Registration) -->
+  <!-- Street Contract Modal -->
   <div id="register-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
     <div class="bg-[#120722] border-2 border-[#ff2a85] rounded-2xl max-w-md w-full p-6 relative shadow-2xl shadow-[#ff2a85]/30">
       <button onclick="closeRegisterModal()" class="absolute top-4 left-4 text-gray-400 hover:text-white text-lg">✕</button>
 
       <div class="mb-5">
-        <span class="text-[10px] font-hud text-[#ffb703] uppercase tracking-widest">SIGN STREET CONTRACT</span>
+        <span class="text-[10px] font-hud text-[#ffb703] uppercase tracking-widest">SIGN HEIST CONTRACT</span>
         <h3 class="text-lg font-black text-white mt-1" id="modal-event-title">نام رویداد</h3>
       </div>
 
@@ -519,7 +472,7 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-gray-300 mb-1">آیدی دیسکورد (برای اطلاع رسانی)</label>
+          <label class="block text-xs font-bold text-gray-300 mb-1">آیدی دیسکورد (برای هماهنگی)</label>
           <input type="text" id="reg-discord" required placeholder="مثلاً: tommy#1986" class="w-full bg-black/70 border border-purple-500/40 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2fe] transition">
         </div>
 
@@ -532,7 +485,7 @@
         <div id="modal-success" class="hidden text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 p-2.5 rounded-lg"></div>
 
         <button type="submit" id="modal-submit-btn" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#ff2a85] to-[#7928ca] hover:brightness-110 text-white font-black text-sm shadow-lg shadow-[#ff2a85]/30 transition">
-          امضای قرارداد و ورود به مسابقه ✍️
+          امضای قرارداد و ثبت‌نام رایگان ✍️
         </button>
       </form>
     </div>
