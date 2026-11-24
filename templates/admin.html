@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اتاق کنترل شهر پاتوق | VCPD Dispatch</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/static/css/custom.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Vazirmatn', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="vice-gradient-bg text-gray-100 font-sans min-h-screen flex flex-col relative">
+  <div class="scanlines fixed inset-0 opacity-30 z-0"></div>
+
+  <!-- Header -->
+  <header class="bg-black/85 border-b-2 border-[#00f2fe]/50 px-6 py-4 flex items-center justify-between sticky top-0 z-30 backdrop-blur-md">
+    <div class="flex items-center gap-3">
+      <a href="/" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#ff2a85] to-[#00f2fe] flex items-center justify-center text-white text-lg font-gta">VI</a>
+      <div>
+        <h1 class="text-base font-black text-white flex items-center gap-2">
+          <span>اتاق کنترل دوربین‌ها و دیسپچ پاتوق (CCTV)</span>
+          <span class="text-[10px] px-2 py-0.5 rounded bg-[#ff2a85]/20 text-[#ff2a85] border border-[#ff2a85]/40 font-hud">REC ●</span>
+        </h1>
+        <p class="text-xs text-[#00f2fe]">مانیتورینگ مناطق بازی، قراردادهای مسابقه و رادیو شهر</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2 bg-zinc-950 px-3 py-1.5 rounded-lg border border-[#ffb703]/40 text-xs">
+        <span class="text-[#ffb703]">کد افسر ارشد:</span>
+        <input type="password" id="admin-key-input" value="{{ admin_key }}" class="bg-transparent text-white font-hud text-xs w-28 focus:outline-none">
+      </div>
+      <a href="/" class="text-xs bg-zinc-900 hover:bg-zinc-800 border border-gray-700 px-3 py-2 rounded-lg text-gray-200 transition">بازگشت به خیابان ↗</a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8 relative z-10">
+    
+    <!-- Vice FM Radio Dispatch Manager -->
+    <div class="bg-[#110820]/90 vice-card-pink rounded-2xl p-6">
+      <h2 class="text-sm font-black text-white mb-2 flex items-center gap-2">
+        <span>📻</span>
+        <span>پیام رادیو وایس‌سیتی و بی‌سیم بالای سایت (VICE FM 98.5)</span>
+      </h2>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input type="text" id="broadcast-input" value="{{ broadcast }}" class="flex-1 bg-black/70 border border-purple-500/40 rounded-xl px-4 py-2.5 text-sm text-[#00f2fe] focus:outline-none focus:border-[#ff2a85]">
+        <button onclick="updateBroadcast()" class="px-6 py-2.5 bg-gradient-to-r from-[#ff2a85] to-[#7928ca] hover:brightness-110 text-white rounded-xl text-xs font-black transition">
+          ارسال روی موج رادیو
+        </button>
+      </div>
+    </div>
+
+    <!-- City Venues / Servers Controller -->
+    <div class="bg-[#110820]/90 vice-card-cyan rounded-2xl p-6">
+      <h2 class="text-base font-black text-white mb-4 flex items-center gap-2">
+        <span>📹</span>
+        <span>دوربین‌های مناطق و کلوب‌های شهر (سرورها)</span>
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="admin-server-list">
+        {% for server in servers %}
+        <div class="bg-black/70 border border-gray-800 rounded-xl p-4 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="font-bold text-sm text-[#ff2a85]">{{ server.venue_name or server.name }}</span>
+              <span class="text-[11px] px-2 py-0.5 rounded font-hud {% if server.status == 'online' %}bg-emerald-500/15 text-emerald-400 border border-emerald-500/30{% else %}bg-rose-500/15 text-rose-400 border border-rose-500/30{% endif %}">
+                {{ server.status|upper }}
+              </span>
+            </div>
+            <div class="text-xs text-white font-bold mb-1">{{ server.name }}</div>
+            <div class="text-xs text-[#00f2fe] font-hud mb-3">{{ server.ip }}:{{ server.port }}</div>
+          </div>
+
+          <div class="space-y-3 pt-3 border-t border-gray-800">
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <label class="text-gray-400 block mb-1">جمعیت حاضر:</label>
+                <input type="number" id="srv-p-{{ server.id }}" value="{{ server.players }}" class="w-full bg-zinc-900 border border-gray-700 rounded px-2 py-1 text-white text-xs font-hud">
+              </div>
+              <div>
+                <label class="text-gray-400 block mb-1">پینگ:</label>
+                <input type="text" id="srv-ping-{{ server.id }}" value="{{ server.ping }}" class="w-full bg-zinc-900 border border-gray-700 rounded px-2 py-1 text-white text-xs font-hud">
+              </div>
+            </div>
+
+            <div class="flex gap-2">
+              <button onclick="saveServer('{{ server.id }}', 'online', {{ server.max_players }})" class="flex-1 py-1.5 rounded bg-emerald-600/80 hover:bg-emerald-500 text-white text-xs font-bold transition">
+                بازگشایی مکان
+              </button>
+              <button onclick="saveServer('{{ server.id }}', 'offline', {{ server.max_players }})" class="flex-1 py-1.5 rounded bg-rose-600/80 hover:bg-rose-500 text-white text-xs font-bold transition">
+                قرنطینه پلیس
+              </button>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Street Contracts / Events Manager -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="bg-[#110820]/90 vice-card-amber rounded-2xl p-6 lg:col-span-1">
+        <h2 class="text-sm font-black text-white mb-4 flex items-center gap-2">
+          <span>💼</span>
+          <span>صدور قرارداد مسابقه جدید</span>
+        </h2>
+
+        <form id="create-event-form" onsubmit="handleCreateEvent(event)" class="space-y-3 text-xs">
+          <div>
+            <label class="block text-gray-300 mb-1">عنوان قرارداد</label>
+            <input type="text" id="ev-title" required placeholder="مثلاً: درفت شبانه GTA Online" class="w-full bg-black/70 border border-gray-700 rounded-xl px-3 py-2 text-white">
+          </div>
+          <div>
+            <label class="block text-gray-300 mb-1">نام بازی</label>
+            <input type="text" id="ev-game" required placeholder="ماینکرفت / CS2 / ..." class="w-full bg-black/70 border border-gray-700 rounded-xl px-3 py-2 text-white">
+          </div>
+          <div>
+            <label class="block text-gray-300 mb-1">زمان اجرا</label>
+            <input type="text" id="ev-date" required placeholder="جمعه ساعت ۲۲:۰۰" class="w-full bg-black/70 border border-gray-700 rounded-xl px-3 py-2 text-white">
+          </div>
+          <div>
+            <label class="block text-gray-300 mb-1">پاداش (Bounty)</label>
+            <input type="text" id="ev-prize" required placeholder="۵۰۰,۰۰۰ تومان نقد" class="w-full bg-black/70 border border-gray-700 rounded-xl px-3 py-2 text-white">
+          </div>
+          <div>
+            <label class="block text-gray-300 mb-1">ظرفیت</label>
+            <input type="number" id="ev-capacity" required value="32" class="w-full bg-black/70 border border-gray-700 rounded-xl px-3 py-2 text-white font-hud">
+          </div>
+          <div>
+            <label class="block text-gray-300 mb-1">جزئیات ماموریت</label>
+            <textarea id="ev-desc" rows="3" required placeholder="توضیحات مسابقه..." class="w-full bg-black/70 border border-gray-700 rounded-xl px-3 py-2 text-white"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#ffb703] to-[#ff2a85] text-zinc-950 font-black text-xs transition hover:brightness-110">
+            انتشار در سطح شهر
+          </button>
+        </form>
+      </div>
+
+      <div class="bg-[#110820]/90 vice-card-pink rounded-2xl p-6 lg:col-span-2">
+        <h2 class="text-sm font-black text-white mb-4 flex items-center gap-2">
+          <span>📜</span>
+          <span>قراردادهای فعال در شهر ({{ events|length }})</span>
+        </h2>
+
+        <div class="space-y-3">
+          {% for event in events %}
+          <div class="bg-black/70 border border-gray-800 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs font-bold text-white">{{ event.title }}</span>
+                <span class="text-[10px] bg-[#ffb703]/20 text-[#ffb703] px-2 py-0.5 rounded">{{ event.game }}</span>
+              </div>
+              <div class="text-xs text-gray-400">
+                <span>{{ event.date }}</span> • 
+                <span class="text-emerald-400">پاداش: {{ event.prize }}</span> • 
+                <span>ثبت‌نام: <strong class="text-white">{{ event.registered }}</strong> / {{ event.capacity }}</span>
+              </div>
+            </div>
+
+            <button onclick="deleteEvent('{{ event.id }}')" class="text-xs bg-rose-600/20 hover:bg-rose-600/40 border border-rose-500/40 text-rose-300 px-3 py-1.5 rounded-lg transition">
+              ابطال قرارداد
+            </button>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Registrations Table -->
+    <div class="bg-[#110820]/90 vice-card-cyan rounded-2xl p-6">
+      <h2 class="text-sm font-black text-white mb-4 flex items-center gap-2">
+        <span>🕵️</span>
+        <span>پرونده شهروندان ثبت‌نامی ({{ registrations|length }})</span>
+      </h2>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs text-right">
+          <thead class="bg-black/80 text-[#00f2fe] border-b border-gray-800">
+            <tr>
+              <th class="p-3">قرارداد مسابقه</th>
+              <th class="p-3">لقب شهری</th>
+              <th class="p-3">گیمرتگ</th>
+              <th class="p-3">دیسکورد</th>
+              <th class="p-3">شماره تماس</th>
+              <th class="p-3">تاریخ ثبت</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-800/60">
+            {% for reg in registrations %}
+            <tr class="hover:bg-white/5 transition">
+              <td class="p-3 font-bold text-white">{{ reg.event_title or reg.event_id }}</td>
+              <td class="p-3 text-gray-300">{{ reg.player_name }}</td>
+              <td class="p-3 font-hud text-[#ffb703]">{{ reg.gamertag }}</td>
+              <td class="p-3 font-hud text-[#ff2a85]">{{ reg.discord }}</td>
+              <td class="p-3 text-gray-400">{{ reg.phone or '-' }}</td>
+              <td class="p-3 text-gray-500 font-hud">{{ reg.created_at }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="/static/js/admin.js"></script>
+</body>
+</html>

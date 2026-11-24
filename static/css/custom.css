@@ -1,0 +1,165 @@
+/* GTA VI Vice City Theme Styles for PatoghGame */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bungee&family=Orbitron:wght@600;800;900&display=swap');
+
+:root {
+  --vice-pink: #ff2a85;
+  --vice-purple: #7928ca;
+  --vice-cyan: #00f2fe;
+  --vice-sunset-1: #ff007f;
+  --vice-sunset-2: #ff758c;
+  --vice-amber: #ffb703;
+  --asphalt: #0b0713;
+}
+
+/* Vice City Sunset Backdrop */
+.vice-gradient-bg {
+  background: radial-gradient(circle at 50% -20%, #4a044e 0%, #1c052e 45%, #090314 85%);
+}
+
+.vice-skyline-glow {
+  background: linear-gradient(180deg, rgba(255, 42, 133, 0.15) 0%, rgba(121, 40, 202, 0.08) 50%, transparent 100%);
+}
+
+/* Neon Text Glow */
+.neon-pink-text {
+  color: #fff;
+  text-shadow: 0 0 5px #ff2a85, 0 0 15px #ff2a85, 0 0 30px #ff2a85;
+}
+
+.neon-cyan-text {
+  color: #fff;
+  text-shadow: 0 0 5px #00f2fe, 0 0 15px #00f2fe, 0 0 30px #00f2fe;
+}
+
+.neon-amber-text {
+  color: #fff;
+  text-shadow: 0 0 5px #ffb703, 0 0 15px #ffb703, 0 0 25px #ffb703;
+}
+
+/* Neon Box Borders & Shadows */
+.vice-card-pink {
+  border: 1px solid rgba(255, 42, 133, 0.4);
+  box-shadow: 0 0 20px -5px rgba(255, 42, 133, 0.25), inset 0 0 15px -5px rgba(255, 42, 133, 0.15);
+}
+
+.vice-card-cyan {
+  border: 1px solid rgba(0, 242, 254, 0.4);
+  box-shadow: 0 0 20px -5px rgba(0, 242, 254, 0.25), inset 0 0 15px -5px rgba(0, 242, 254, 0.15);
+}
+
+.vice-card-amber {
+  border: 1px solid rgba(255, 183, 3, 0.4);
+  box-shadow: 0 0 20px -5px rgba(255, 183, 3, 0.25), inset 0 0 15px -5px rgba(255, 183, 3, 0.15);
+}
+
+/* Giant City Billboard Styling */
+.billboard-frame {
+  background: #110e1a;
+  border: 8px solid #272138;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 42, 133, 0.2);
+  position: relative;
+}
+
+.billboard-spotlight {
+  position: absolute;
+  top: -24px;
+  width: 28px;
+  height: 24px;
+  background: #3f3655;
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 0 25px 10px rgba(255, 240, 200, 0.45);
+}
+
+.billboard-spotlight::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 180px;
+  background: linear-gradient(180deg, rgba(255, 245, 220, 0.25) 0%, transparent 100%);
+  clip-path: polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%);
+  pointer-events: none;
+}
+
+/* Wanted Stars Animation */
+@keyframes starPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 3px #ffb703);
+  }
+  50% {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 8px #ff2a85);
+  }
+}
+
+.wanted-star-active {
+  color: #ffb703;
+  animation: starPulse 1.2s infinite ease-in-out;
+}
+
+/* Minimap / Radar HUD */
+.radar-hud {
+  width: 100px;
+  height: 100px;
+  border: 3px solid rgba(0, 242, 254, 0.6);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, rgba(10, 4, 22, 0.95) 70%);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+  position: relative;
+}
+
+.radar-sweep {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(0, 242, 254, 0.4) 0deg, transparent 60deg, transparent 360deg);
+  animation: radarSpin 4s linear infinite;
+}
+
+@keyframes radarSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Scanline Overlay (Retro TV / CCTV Effect) */
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.35) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+}
+
+/* GTA VI Logo Style Font */
+.font-gta {
+  font-family: 'Anton', 'Bungee', sans-serif;
+  letter-spacing: 1px;
+}
+
+.font-hud {
+  font-family: 'Orbitron', monospace;
+}
+
+/* Custom Scrollbar Vice Style */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #090314;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff2a85 0%, #7928ca 100%);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff2a85;
+}

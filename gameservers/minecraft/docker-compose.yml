@@ -1,0 +1,30 @@
+services:
+  minecraft:
+    image: itzg/minecraft-server:latest
+    container_name: minecraft-server
+    restart: unless-stopped
+    ports:
+      - "25565:25565"
+    environment:
+      EULA: "TRUE"
+      VERSION: "LATEST"
+      TYPE: "PAPER"
+      MEMORY: "3G"
+      ONLINE_MODE: "false" # پشتیبانی از کلاینت‌های رسمی و کرک‌شده
+      MOTD: "Paasta Cloud Minecraft Server"
+      JVM_XX_OPTS: "-XX:+UseG1GC"
+    volumes:
+      - mc-data:/data
+
+  playit:
+    image: pepaondrugs/playitgg-docker:latest
+    container_name: playit-gg
+    restart: unless-stopped
+    depends_on:
+      - minecraft
+    volumes:
+      - playit-data:/root
+
+volumes:
+  mc-data:
+  playit-data:
